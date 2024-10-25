@@ -12,5 +12,5 @@ public interface IUserService
     Task CreateUser(UserDto user);
     Task DeleteUser(int id);
     Task UpdateUser(UserDto user);
-    Task<PaginatedResponse<UserDto>> GetAll(int pageNumber);
+    Task<PaginatedResponse<UserDto>> GetAll(int pageNumber, int pageSize);
 }

@@ -15,9 +15,9 @@ namespace WebApi.Controllers;
 public class UserController(IUserService userService) : ControllerBase
 {
     [HttpGet("getAll")]
-    public async Task<IActionResult> GetAll(int pageNumber = 1)
+    public async Task<IActionResult> GetAll(int pageNumber = 1, int pageSize = 10)
     {
-        var result = await userService.GetAll(pageNumber);
+        var result = await userService.GetAll(pageNumber, pageSize);
         return Ok(result);
     }
 

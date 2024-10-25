@@ -16,8 +16,6 @@ namespace Application.Services;
 
 public class UserService : IUserService
 {
-
-    private int pageSize = 10;
     private readonly UserManager<ApplicationUser> userManager;
     private readonly RoleManager<ApplicationRole> roleManager;
     private readonly IMapper mapper;
@@ -32,9 +30,11 @@ RoleManager<ApplicationRole> roleManager, IMapper mapper, IOptions<PasswordSetti
         this.passwordSettings = passwordSettings.Value;
     }
 
-    public async Task<PaginatedResponse<UserDto>> GetAll(int pageNumber)
+    public async Task<PaginatedResponse<UserDto>> GetAll(int pageNumber, int pageSize)
     {
         pageNumber = pageNumber < 1 ? 1 : pageNumber;
+        pageSize = pageSize < 1 ? 10 : pageSize;
+
         userManager.Users.Skip((pageNumber - 1) * pageSize)
                             .Take(pageSize).ToList();
 
