@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure.Data;
+namespace DataAccess.Data;
 
 public class ApplicationIdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int, ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>
 {
@@ -24,22 +24,40 @@ public class ApplicationIdentityDbContext : IdentityDbContext<ApplicationUser, A
             UserName = "admin@happywarehouse.com",
             NormalizedUserName = "ADMIN@HAPPYWAREHOUSE.COM",
             Email = "admin@happywarehouse.com",
+            FullName = "Admin",
             NormalizedEmail = "ADMIN@HAPPYWAREHOUSE.COM",
             EmailConfirmed = true,
+            IsActive = true,
             SecurityStamp = Guid.NewGuid().ToString("D")
         };
 
         user.PasswordHash = hasher.HashPassword(user, "P@ssw0rd");
         modelBuilder.Entity<ApplicationUser>().HasData(user);
 
+        modelBuilder.Entity<ApplicationRole>().HasData(
+            new ApplicationRole { Id = 1, Name = "Admin", NormalizedName = "ADMIN" },
+            new ApplicationRole { Id = 2, Name = "Management", NormalizedName = "MANAGEMENT" },
+            new ApplicationRole { Id = 3, Name = "Auditor", NormalizedName = "AUDITOR" }
+        );
 
-        modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUser");
-        modelBuilder.Entity<ApplicationRole>().ToTable("ApplicationRole");
-        modelBuilder.Entity<ApplicationUserClaim>().ToTable("ApplicationUserClaim");
-        modelBuilder.Entity<ApplicationUserLogin>().ToTable("ApplicationUserLogin");
-        modelBuilder.Entity<ApplicationUserRole>().ToTable("ApplicationUserRole");
-        modelBuilder.Entity<ApplicationUserToken>().ToTable("ApplicationUserToken");
-        modelBuilder.Entity<ApplicationRoleClaim>().ToTable("ApplicationRoleClaim");
+        modelBuilder.Entity<ApplicationUserRole>().HasData(new ApplicationUserRole
+        {
+            UserId = 1,
+            RoleId = 1
+        });
+
+        modelBuilder.Entity<ApplicationUser>(entity =>
+        {
+            entity.Property(e => e.Email).IsRequired();
+            entity.Property(e => e.FullName).IsRequired();
+            entity.Property(e => e.IsActive).IsRequired();
+        });
+        modelBuilder.Entity<ApplicationRole>();
+        modelBuilder.Entity<ApplicationUserClaim>();
+        modelBuilder.Entity<ApplicationUserLogin>();
+        modelBuilder.Entity<ApplicationUserRole>();
+        modelBuilder.Entity<ApplicationUserToken>();
+        modelBuilder.Entity<ApplicationRoleClaim>();
 
     }
 }

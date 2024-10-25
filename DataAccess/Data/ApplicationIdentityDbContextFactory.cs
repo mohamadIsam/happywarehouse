@@ -1,9 +1,9 @@
-using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Infrastructure.Data;
+namespace DataAccess.Data;
+
 public class ApplicationIdentityDbContextFactory : IDesignTimeDbContextFactory<ApplicationIdentityDbContext>
 {
     public ApplicationIdentityDbContext CreateDbContext(string[] args)
