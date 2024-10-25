@@ -51,6 +51,14 @@ RoleManager<ApplicationRole> roleManager, IMapper mapper, IOptions<PasswordSetti
         };
     }
 
+    public async Task<UserDto> GetById(int id)
+    {
+        var user = userManager.Users.Where(c => c.Id == id).FirstOrDefault();
+        if (user != null)
+            return mapper.Map<UserDto>(user);
+        throw new WarehouseException("Not-Found", StatusCodes.Status400BadRequest);
+    }
+
     public async Task CreateUser(UserDto userDto)
     {
         var user = await userManager.FindByIdAsync(userDto.Id.ToString());

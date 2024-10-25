@@ -13,4 +13,5 @@ public interface IUserService
     Task DeleteUser(int id);
     Task UpdateUser(UserDto user);
     Task<PaginatedResponse<UserDto>> GetAll(int pageNumber, int pageSize);
+    Task<UserDto> GetById(int id);
 }

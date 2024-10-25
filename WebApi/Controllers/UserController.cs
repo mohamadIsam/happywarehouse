@@ -21,6 +21,13 @@ public class UserController(IUserService userService) : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("getById")]
+    public async Task<IActionResult> GetById(int userId)
+    {
+        var result = await userService.GetById(userId);
+        return Ok(result);
+    }
+
     [HttpPost("create")]
     public async Task<IActionResult> CreateUser(UserDto user)
     {
