@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DataAccess.Migrations.ApplicationDb
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -19,7 +21,7 @@ namespace DataAccess.Migrations.ApplicationDb
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -37,7 +39,7 @@ namespace DataAccess.Migrations.ApplicationDb
                     City = table.Column<string>(type: "TEXT", nullable: false),
                     CountryId = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -63,12 +65,12 @@ namespace DataAccess.Migrations.ApplicationDb
                     MSRPPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     WarehouseId = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
-                    table.CheckConstraint("CK_Item_Qty", "[Qty] > 1");
+                    table.CheckConstraint("CK_Item_Qty", "[Qty] >= 1");
                     table.ForeignKey(
                         name: "FK_Items_Warehouses_WarehouseId",
                         column: x => x.WarehouseId,
@@ -76,6 +78,24 @@ namespace DataAccess.Migrations.ApplicationDb
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "Id", "CreatedDate", "Name", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6112), "Jordan", null },
+                    { 2, new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6144), "Syria", null },
+                    { 3, new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6147), "Saudi Arabia", null },
+                    { 4, new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6149), "Qatar", null },
+                    { 5, new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6151), "Palestine", null }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_Name",
+                table: "Items",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_WarehouseId",
@@ -85,7 +105,12 @@ namespace DataAccess.Migrations.ApplicationDb
             migrationBuilder.CreateIndex(
                 name: "IX_Warehouses_CountryId",
                 table: "Warehouses",
-                column: "CountryId",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Warehouses_Name",
+                table: "Warehouses",
+                column: "Name",
                 unique: true);
         }
 

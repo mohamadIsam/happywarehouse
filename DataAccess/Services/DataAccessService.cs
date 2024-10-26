@@ -8,6 +8,8 @@ using DataAccess.Data;
 using Domain.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using DataAccess.IUnitOfWorks;
+using DataAccess.UnitOfWorks;
 
 namespace DataAccess.Services;
 
@@ -29,6 +31,7 @@ public static class DataAccessService
         .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
         .AddDefaultTokenProviders();
 
+        services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
         return services;
     }
 }

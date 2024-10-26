@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
 
-public class WarehouseRespository : BaseRepository<Warehouse>, IWarehouseRespository
+public class WarehouseRepository : BaseRepository<Warehouse>, IWarehouseRepository
 {
-    public WarehouseRespository(DbContext context) : base(context)
+    public WarehouseRepository(DbContext context) : base(context)
     {
     }
 }

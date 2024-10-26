@@ -20,6 +20,9 @@ public class MapperProfile : Profile
         CreateMap<CountryDto, Country>();
         CreateMap<Country, CountryDto>();
 
+        CreateMap<RoleDto, ApplicationRole>();
+        CreateMap<ApplicationRole, RoleDto>();
+
         CreateMap<ItemDto, Item>();
         CreateMap<Item, ItemDto>();
 

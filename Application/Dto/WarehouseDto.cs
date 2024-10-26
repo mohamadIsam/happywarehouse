@@ -8,6 +8,7 @@ namespace Application.Dto;
 
 public class WarehouseDto
 {
+    public int Id { get; set; }
     [Required]
     public string Name { get; set; }
     [Required]

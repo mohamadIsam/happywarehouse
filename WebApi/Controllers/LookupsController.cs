@@ -4,24 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Application.IServices;
 
 namespace WebApi.Controllers;
 
 [ApiController]
 [Authorize]
 [Route("api/[controller]")]
-public class LookupsController : ControllerBase
+public class LookupsController(ILookupService lookupService) : ControllerBase
 {
 
     [HttpGet("getCountries")]
-    public IActionResult GetCountries()
+    public async Task<IActionResult> GetCountries()
     {
-        return Ok();
+        var result = await lookupService.GetCountries();
+        return Ok(result);
     }
 
     [HttpGet("getRoles")]
     public IActionResult GetRoles()
     {
-        return Ok();
+        var result = lookupService.GetRoles();
+        return Ok(result);
     }
 }

@@ -52,12 +52,13 @@ public class ApplicationIdentityDbContext : IdentityDbContext<ApplicationUser, A
             entity.Property(e => e.FullName).IsRequired();
             entity.Property(e => e.IsActive).IsRequired();
         });
-        modelBuilder.Entity<ApplicationRole>();
-        modelBuilder.Entity<ApplicationUserClaim>();
-        modelBuilder.Entity<ApplicationUserLogin>();
-        modelBuilder.Entity<ApplicationUserRole>();
-        modelBuilder.Entity<ApplicationUserToken>();
-        modelBuilder.Entity<ApplicationRoleClaim>();
+        modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUser");
+        modelBuilder.Entity<ApplicationRole>().ToTable("ApplicationRole");
+        modelBuilder.Entity<ApplicationUserClaim>().ToTable("ApplicationUserClaim");
+        modelBuilder.Entity<ApplicationUserLogin>().ToTable("ApplicationUserLogin");
+        modelBuilder.Entity<ApplicationUserRole>().ToTable("ApplicationUserRole");
+        modelBuilder.Entity<ApplicationUserToken>().ToTable("ApplicationUserToken");
+        modelBuilder.Entity<ApplicationRoleClaim>().ToTable("ApplicationRoleClaim");
 
     }
 }

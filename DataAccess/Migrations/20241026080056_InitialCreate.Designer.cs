@@ -3,16 +3,19 @@ using System;
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DataAccess.Migrations.ApplicationDb
+namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026080056_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -30,12 +33,44 @@ namespace DataAccess.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6112),
+                            Name = "Jordan"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6144),
+                            Name = "Syria"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6147),
+                            Name = "Saudi Arabia"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6149),
+                            Name = "Qatar"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 10, 26, 11, 0, 56, 333, DateTimeKind.Local).AddTicks(6151),
+                            Name = "Palestine"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Item", b =>
@@ -55,7 +90,6 @@ namespace DataAccess.Migrations.ApplicationDb
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .IsUnicode(true)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Qty")
@@ -64,7 +98,7 @@ namespace DataAccess.Migrations.ApplicationDb
                     b.Property<string>("SKU")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("WarehouseId")
@@ -72,11 +106,14 @@ namespace DataAccess.Migrations.ApplicationDb
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.HasIndex("WarehouseId");
 
                     b.ToTable("Items", t =>
                         {
-                            t.HasCheckConstraint("CK_Item_Qty", "[Qty] > 1");
+                            t.HasCheckConstraint("CK_Item_Qty", "[Qty] >= 1");
                         });
                 });
 
@@ -102,15 +139,16 @@ namespace DataAccess.Migrations.ApplicationDb
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .IsUnicode(true)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId")
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Warehouses");
@@ -130,8 +168,8 @@ namespace DataAccess.Migrations.ApplicationDb
             modelBuilder.Entity("Domain.Entities.Warehouse", b =>
                 {
                     b.HasOne("Domain.Entities.Country", "Country")
-                        .WithOne("Warehouse")
-                        .HasForeignKey("Domain.Entities.Warehouse", "CountryId")
+                        .WithMany("Warehouses")
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -140,8 +178,7 @@ namespace DataAccess.Migrations.ApplicationDb
 
             modelBuilder.Entity("Domain.Entities.Country", b =>
                 {
-                    b.Navigation("Warehouse")
-                        .IsRequired();
+                    b.Navigation("Warehouses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Warehouse", b =>

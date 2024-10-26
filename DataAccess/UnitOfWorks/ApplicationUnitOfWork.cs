@@ -20,14 +20,14 @@ public class ApplicationUnitOfWork : IApplicationUnitOfWork
 
     public IItemRepository ItemRepository { get; private set; }
 
-    public IWarehouseRespository WarehouseRespository { get; private set; }
+    public IWarehouseRepository WarehouseRepository { get; private set; }
 
     public ApplicationUnitOfWork(ApplicationDbContext appContext)
     {
         _appContext = appContext;
         CountryRepository = new CountryRepository(_appContext);
         ItemRepository = new ItemRepository(_appContext);
-        WarehouseRespository = new WarehouseRespository(_appContext);
+        WarehouseRepository = new WarehouseRepository(_appContext);
     }
 
     public async Task BeginTransactionAsync()

@@ -22,7 +22,7 @@ public class UserService : IUserService
     private readonly PasswordSettings passwordSettings;
 
     public UserService(UserManager<ApplicationUser> userManager,
-RoleManager<ApplicationRole> roleManager, IMapper mapper, IOptions<PasswordSettings> passwordSettings)
+    RoleManager<ApplicationRole> roleManager, IMapper mapper, IOptions<PasswordSettings> passwordSettings)
     {
         this.userManager = userManager;
         this.roleManager = roleManager;
@@ -56,7 +56,7 @@ RoleManager<ApplicationRole> roleManager, IMapper mapper, IOptions<PasswordSetti
         var user = userManager.Users.Where(c => c.Id == id).FirstOrDefault();
         if (user != null)
             return mapper.Map<UserDto>(user);
-        throw new WarehouseException("Not-Found", StatusCodes.Status400BadRequest);
+        throw new WarehouseException("User not found.", StatusCodes.Status404NotFound);
     }
 
     public async Task CreateUser(UserDto userDto)
@@ -67,7 +67,7 @@ RoleManager<ApplicationRole> roleManager, IMapper mapper, IOptions<PasswordSetti
             user = mapper.Map<ApplicationUser>(userDto);
             var result = await userManager.CreateAsync(user, passwordSettings.Password);
             if (result.Errors.Count() > 0)
-                throw new Exception(result.Errors.FirstOrDefault().Description);
+                throw new WarehouseException(result.Errors.FirstOrDefault().Description, StatusCodes.Status400BadRequest);
 
             var role = await roleManager.FindByIdAsync(userDto.RoleId.ToString());
             if (role != null)
@@ -89,7 +89,7 @@ RoleManager<ApplicationRole> roleManager, IMapper mapper, IOptions<PasswordSetti
         var user = await userManager.FindByIdAsync(userDto.Id.ToString());
         if (user == null)
         {
-            throw new Exception("User not found.");
+            throw new WarehouseException("User not found.", StatusCodes.Status404NotFound);
         }
 
         if (userDto.RoleId > 0)

@@ -26,6 +26,11 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         return await _context.Set<T>().ToListAsync();
     }
 
+    public IQueryable<T> GetAll()
+    {
+        return _context.Set<T>().AsQueryable();
+    }
+
     public async Task AddAsync(T entity)
     {
         await _context.Set<T>().AddAsync(entity);

@@ -6,7 +6,6 @@ using Domain.Entities;
 
 namespace DataAccess.IRepositories;
 
-public interface IWarehouseRespository : IBaseRepository<Warehouse>
+public interface IWarehouseRepository : IBaseRepository<Warehouse>
 {
-
 }

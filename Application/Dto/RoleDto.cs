@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.Entities;
+namespace Application.Dto;
 
-public class Country : BaseEntity
+public class RoleDto
 {
+    public int Id { get; set; }
     public string Name { get; set; }
-    
-    public ICollection<Warehouse> Warehouses { get; set; }
 }

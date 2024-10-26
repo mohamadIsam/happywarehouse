@@ -3,19 +3,16 @@ using System;
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DataAccess.Migrations
+namespace DataAccess.Migrations.ApplicationIdentityDb
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    [Migration("20241024162406_InitialCreate")]
-    partial class InitialCreate
+    partial class ApplicationIdentityDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -44,7 +41,7 @@ namespace DataAccess.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("ApplicationRole", (string)null);
 
                     b.HasData(
                         new
@@ -86,7 +83,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("ApplicationRoleClaim", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationUser", b =>
@@ -159,14 +156,14 @@ namespace DataAccess.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("ApplicationUser", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "186ab368-f674-4703-b97e-ff2fa3fe87fa",
+                            ConcurrencyStamp = "c80af129-9d8c-4b4d-b344-308970e31e63",
                             Email = "admin@happywarehouse.com",
                             EmailConfirmed = true,
                             FullName = "Admin",
@@ -174,9 +171,9 @@ namespace DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@HAPPYWAREHOUSE.COM",
                             NormalizedUserName = "ADMIN@HAPPYWAREHOUSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIIPNfXqw8X3PoD/GogTFbidYmw3poerTA0/V96WZiBEqEL/dmMz3N8N1xUdc63dJg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFPL1mOs+x4D0QCTWjsMuP91+EAUOXK47z+TdhX/cbwvAqE5t+Rih1BGCHrKaqrZUQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "862cf551-146b-4c8e-bdb3-a74ab59ae519",
+                            SecurityStamp = "0b241f71-fe9e-4ea0-8bc7-934e8a89f8d8",
                             TwoFactorEnabled = false,
                             UserName = "admin@happywarehouse.com"
                         });
@@ -201,7 +198,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("ApplicationUserClaim", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationUserLogin", b =>
@@ -222,7 +219,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("ApplicationUserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationUserRole", b =>
@@ -237,7 +234,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("ApplicationUserRole", (string)null);
 
                     b.HasData(
                         new
@@ -263,7 +260,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("ApplicationUserToken", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationRoleClaim", b =>

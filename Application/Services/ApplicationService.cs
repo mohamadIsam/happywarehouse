@@ -43,6 +43,9 @@ public static class ApplicationService
         });
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IWarehouseService, WarehouseService>();
+        services.AddScoped<IItemService, ItemService>();
+        services.AddScoped<ILookupService, LookupService>();
         services.AddScoped<JwtHelper>();
         services.AddAutoMapper(typeof(MapperProfile)); ;
         return services;

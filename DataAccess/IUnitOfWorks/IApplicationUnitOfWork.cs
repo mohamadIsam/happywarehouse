@@ -10,7 +10,7 @@ public interface IApplicationUnitOfWork : IDisposable
 {
     ICountryRepository CountryRepository { get; }
     IItemRepository ItemRepository { get; }
-    IWarehouseRespository WarehouseRespository { get; }
+    IWarehouseRepository WarehouseRepository { get; }
 
     Task BeginTransactionAsync();
     Task CommitTransactionAsync();
