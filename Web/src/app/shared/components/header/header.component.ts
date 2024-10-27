@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
 
   navigateToAccountSettigs() {
-    this.router.navigateByUrl(`dashboard/user`);
+    this.router.navigateByUrl(`dashboard/user/${this.tokenHelperService.userId}`);
   }
 
   logout() {

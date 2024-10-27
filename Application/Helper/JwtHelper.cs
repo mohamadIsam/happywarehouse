@@ -30,7 +30,7 @@ public class JwtHelper
 
         List<Claim> claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Sid, user.Id.ToString()),
+            new Claim("sid", user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Name, user.FullName),
         };
 

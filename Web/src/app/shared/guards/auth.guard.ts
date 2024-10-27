@@ -1,14 +1,14 @@
 import { inject } from '@angular/core';
 import {
-    ActivatedRouteSnapshot,
     CanActivateFn,
     Router,
-    RouterStateSnapshot,
 } from '@angular/router';
+import { TokenHelperService } from '../services/token-helper.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
     const token = localStorage.getItem('token');
-    if (token) return true;
+    const tokenHelperService = inject(TokenHelperService);
+    if (token && !tokenHelperService.isExpired) return true;
     else {
         const router = inject(Router);
         router.navigateByUrl('login');
