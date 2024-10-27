@@ -1,0 +1,83 @@
+<form (ngSubmit)="submit()" [formGroup]="userForm">
+  <div class="row p-5">
+    @if(error){
+    <p class="text-danger">{{ "errors." + error['message'] | translate }}</p>
+    }
+    <h1 class="h4">
+      <i class="fa fa-user-o userIcon"></i>
+      {{ "user.user-profile" | translate }}
+    </h1>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-3">
+        <label for="firstName" class="form-label">
+          {{ "user.full-name" | translate }}
+        </label>
+        <input type="text" class="form-control" formControlName="fullName" id="fullName" autocomplete="false"
+          [ngClass]="{ 'is-invalid': submitted && controls.fullName.errors }" />
+        @if(submitted && controls.fullName.errors){
+        <div class="invalid-feedback">
+          {{ "error.required" | translate }}
+        </div>
+        }
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-3">
+        <label for="email" class="form-label">
+          {{ "user.email" | translate }}
+        </label>
+        <input type="text" class="form-control" formControlName="email" id="email" autocomplete="false"
+          [ngClass]="{ 'is-invalid': submitted && controls.email.errors }" />
+        @if(submitted && controls.email.errors){
+        <div class="invalid-feedback">
+          @if (controls.email.errors['required']) {
+          {{ "error.required" | translate }}
+          } @if(controls.email.errors['email']){
+          {{ "error.email-invalid" | translate }}
+          }
+        </div>
+        }
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-3">
+        <label for="role" class="form-label">
+          {{ "user.role" | translate }}
+        </label>
+        <app-select [options]="roles" key="id" name="name" formControlName="roleId"
+          [value]="controls.roleId.value"></app-select>
+        @if(submitted && controls.roleId.errors){
+        @if (controls.roleId.errors['required']) {
+        <div class="invalid-feedback">
+          {{ "error.required" | translate }}
+        </div>
+        }
+        }
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-5">
+        <input type="checkbox" class="form-check-input" formControlName="isActive" id="isActive" autocomplete="false"
+          [ngClass]="{ 'is-invalid': submitted && controls.isActive.errors }" />
+        <label for="isActive" class="form-check-label ms-3">
+          {{ "user.is-active" | translate }}
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group mt-3">
+        <button type="submit" class="btn btn-outline-primary me-3">
+          {{ "action.submit" | translate }}
+        </button>
+        <button type="button" [disabled]="!controls.id.value" (click)="openChangePassword()"
+          class="btn btn-outline-primary me-3">
+          {{ "user.change-password" | translate }}
+        </button>
+        <button type="button" [disabled]="!controls.id.value || isAdmin" (click)="deleteUser()"
+          class="btn btn-outline-danger">
+          {{ "action.delete" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

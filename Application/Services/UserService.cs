@@ -35,11 +35,9 @@ public class UserService : IUserService
         pageNumber = pageNumber < 1 ? 1 : pageNumber;
         pageSize = pageSize < 1 ? 10 : pageSize;
 
-        userManager.Users.Skip((pageNumber - 1) * pageSize)
-                            .Take(pageSize).ToList();
-
         var totalUsers = userManager.Users.Count();
-        var result = userManager.Users.ToList();
+        var result = userManager.Users.Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize).ToList();
         var users = mapper.Map<IEnumerable<UserDto>>(result);
         return new PaginatedResponse<UserDto>
         {
@@ -54,9 +52,17 @@ public class UserService : IUserService
     public async Task<UserDto> GetById(int id)
     {
         var user = userManager.Users.Where(c => c.Id == id).FirstOrDefault();
-        if (user != null)
-            return mapper.Map<UserDto>(user);
-        throw new WarehouseException("User not found.", StatusCodes.Status404NotFound);
+        if (user == null)
+            throw new WarehouseException("user-not-found", StatusCodes.Status404NotFound);
+
+        var roleNames = await userManager.GetRolesAsync(user);
+        var roleId = roleManager.Roles
+            .Where(r => roleNames.Contains(r.Name))
+            .Select(r => r.Id)
+            .FirstOrDefault();
+        var userDto = mapper.Map<UserDto>(user);
+        userDto.RoleId = roleId;
+        return userDto;
     }
 
     public async Task CreateUser(UserDto userDto)
@@ -81,7 +87,7 @@ public class UserService : IUserService
         var roles = await userManager.GetRolesAsync(user);
         var adminRole = roles.Where(r => r.Contains("Admin")).FirstOrDefault();
         if (adminRole != null)
-            throw new WarehouseException("You are not allowed to delete this user.", StatusCodes.Status403Forbidden);
+            throw new WarehouseException("not-allowed", StatusCodes.Status403Forbidden);
         await userManager.DeleteAsync(user);
     }
     public async Task UpdateUser(UserDto userDto)
@@ -89,7 +95,7 @@ public class UserService : IUserService
         var user = await userManager.FindByIdAsync(userDto.Id.ToString());
         if (user == null)
         {
-            throw new WarehouseException("User not found.", StatusCodes.Status404NotFound);
+            throw new WarehouseException("user-not-found", StatusCodes.Status404NotFound);
         }
 
         if (userDto.RoleId > 0)

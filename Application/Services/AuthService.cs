@@ -39,25 +39,25 @@ SignInManager<ApplicationUser> signInManager, JwtHelper jwtHelper) : IAuthServic
         return token;
     }
 
-    public async Task<string> ChangePassword(ChangePasswordDto changePassword, string userId)
+    public async Task<string> ChangePassword(ChangePasswordDto changePassword)
     {
-        var user = await userManager.FindByIdAsync(userId.ToString());
+        var user = await userManager.FindByIdAsync(changePassword.Id.ToString());
         // Check the current password
         var passwordCheck = await userManager.CheckPasswordAsync(user, changePassword.CurrentPassword);
         if (!passwordCheck)
         {
-            throw new WarehouseException("Invalid username or password.", StatusCodes.Status403Forbidden);
+            throw new WarehouseException("incorrect-username-or-password", StatusCodes.Status403Forbidden);
         }
         else if (changePassword.NewPassword != changePassword.RepeatPassword)
         {
-            throw new WarehouseException("Repeat password is incorrect.", StatusCodes.Status403Forbidden);
+            throw new WarehouseException("repeat_password_incorrect.", StatusCodes.Status403Forbidden);
         }
         // Change the password
         var result = await userManager.ChangePasswordAsync(user, changePassword.CurrentPassword, changePassword.NewPassword);
 
         if (!result.Succeeded)
         {
-            throw new WarehouseException("Invalid username or password.", StatusCodes.Status403Forbidden);
+            throw new WarehouseException("incorrect-username-or-password", StatusCodes.Status403Forbidden);
         }
         //generate token
         var token = await jwtHelper.GenerateJwtToken(user);

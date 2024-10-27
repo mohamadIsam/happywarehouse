@@ -1,0 +1,32 @@
+<div class="modal fade show" style="display: block; padding-right: 15px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fa fa-warning text-warning" style="margin-right: 7px; color: blue"></i>
+                    <span>{{'user.confirm-dialog' | translate}}</span>
+                </h5>
+                <button type="button" class="close" (click)="dismiss()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-success" style="font-size: 5.5rem">
+                    <i class="fa-solid fa-envelope-circle-check"></i>
+                </p>
+                <!-- <p class="text-center text-center h5">Cindly note that </p> -->
+                <p class="text-muted text-center">
+                    {{'user.confirm-message' | translate}}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="approve()" class="btn btn-primary">
+                    {{ "action.yes" | translate }}
+                </button>
+                <button type="button" (click)="dismiss()" class="btn btn-outline-danger">
+                    {{ "action.no" | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

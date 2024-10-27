@@ -21,7 +21,7 @@ public class WarehouseController(IWarehouseService warehouseService) : Controlle
         return Ok(response);
     }
 
-    [HttpGet("getById")]
+    [HttpGet("getById/{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         var response = await warehouseService.GetById(id);

@@ -1,0 +1,49 @@
+#dropdownMenuButton {
+    width: 220px;
+    border: 1px solid #E0E0E0
+}
+
+.user-name {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+}
+
+nav.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 9;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    display: flex;
+}
+
+.navbar-brand p {
+    margin-inline-start: 10px;
+}
+
+.dropDownPosition {
+    margin-left: 68rem;
+}
+
+.userIcon {
+    margin-right: 0.5rem;
+    color: #3C3FFF;
+}
+
+.dropdown-menu {
+    width: 220px;
+}
+
+.logo-div {
+    z-index: 10;
+}
+
+.client-logo {
+    display: block;
+    height: 35px;
+}

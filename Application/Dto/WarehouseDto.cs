@@ -17,4 +17,5 @@ public class WarehouseDto
     public string City { get; set; }
     [Required]
     public int CountryId { get; set; }
+    public int TotalItems { get; set; }
 }

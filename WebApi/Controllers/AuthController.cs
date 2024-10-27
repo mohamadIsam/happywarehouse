@@ -14,7 +14,7 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 public class AuthController(IAuthService authService) : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto login)
     {
         var result = await authService.Login(login);
@@ -25,8 +25,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     [HttpPost("changePassword")]
     public async Task<IActionResult> ChangePassword(ChangePasswordDto changePassword)
     {
-        var userId = User.FindFirstValue(ClaimTypes.Sid);
-        var result = await authService.ChangePassword(changePassword, userId);
+        var result = await authService.ChangePassword(changePassword);
         return Ok(result);
     }
 }

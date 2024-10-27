@@ -8,5 +8,5 @@ namespace DataAccess.IRepositories;
 
 public interface IItemRepository : IBaseRepository<Item>
 {
-
+    IQueryable<Item> GetAllByWarehouseId(int id);
 }

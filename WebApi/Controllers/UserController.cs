@@ -21,10 +21,10 @@ public class UserController(IUserService userService) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("getById")]
-    public async Task<IActionResult> GetById(int userId)
+    [HttpGet("getById/{id}")]
+    public async Task<IActionResult> GetById(int id)
     {
-        var result = await userService.GetById(userId);
+        var result = await userService.GetById(id);
         return Ok(result);
     }
 

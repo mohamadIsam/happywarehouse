@@ -19,10 +19,20 @@ public class WarehouseService(IApplicationUnitOfWork unitOfWork, IMapper mapper)
         pageNumber = pageNumber < 1 ? 1 : pageNumber;
         pageSize = pageSize < 1 ? 10 : pageSize;
 
-        var result = unitOfWork.WarehouseRepository.GetAll()
-        .Skip((pageNumber - 1) * pageSize)
-                            .Take(pageSize).ToList();
+        var query = unitOfWork.WarehouseRepository.GetAllWarehouses();
+        var warehouseQuery = from warehouse in query
+                             select new WarehouseDto
+                             {
+                                 Id = warehouse.Id,
+                                 Name = warehouse.Name,
+                                 Address = warehouse.Address,
+                                 City = warehouse.City,
+                                 CountryId = warehouse.CountryId,
+                                 TotalItems = warehouse.Items.Count()
+                             };
 
+        var result = warehouseQuery.Skip((pageNumber - 1) * pageSize)
+                                   .Take(pageSize).ToList();
         var total = unitOfWork.WarehouseRepository.GetAll().Count();
         var warehouses = mapper.Map<IEnumerable<WarehouseDto>>(result);
         return new PaginatedResponse<WarehouseDto>
@@ -52,7 +62,7 @@ public class WarehouseService(IApplicationUnitOfWork unitOfWork, IMapper mapper)
         var warehouse = await unitOfWork.WarehouseRepository.GetByIdAsync(warehouseDto.Id);
         if (warehouse == null)
         {
-            throw new WarehouseException("Warehouse not found.", StatusCodes.Status404NotFound);
+            throw new WarehouseException("warehouse-not-found.", StatusCodes.Status404NotFound);
         }
         mapper.Map(warehouseDto, warehouse);
         await unitOfWork.WarehouseRepository.UpdateAsync(warehouse);

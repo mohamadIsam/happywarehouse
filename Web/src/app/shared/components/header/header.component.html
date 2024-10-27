@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a
+    (click)="navigateToHome()"
+    href="javascript:void(0)"
+    class="navbar-brand"
+    href="javascript:void(0)"
+  >
+    <img src="warehousing-icon.svg" alt="Company" class="client-logo" />
+    <p>{{ "app.title" | translate }}</p>
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    (click)="showNavbar()"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div
+    class="collapse navbar-collapse justify-content-end"
+    [class.show]="showNavbarMenu"
+    id="navbarSupportedContent"
+  >
+    <form class="form-inline my-2 my-lg-0 d-flex justify-content-end">
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle d-flex align-items-center justify-content-between"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          (click)="showMenu()"
+        >
+          <div class="user-name">
+            <i class="fa fa-user-o userIcon"></i> {{ userName }}
+          </div>
+        </button>
+        <div
+          class="dropdown-menu"
+          [ngClass]="{ show: show }"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <a
+            class="dropdown-item"
+            (click)="navigateToAccountSettigs()"
+            href="javascript:void(0)"
+          >
+            <i class="fa fa-cog userIcon"></i>
+            {{ "header.account-settings" | translate }}
+          </a>
+          <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">
+            <i class="fa fa-sign-out userIcon"></i>
+            {{ "header.logout" | translate }}
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</nav>

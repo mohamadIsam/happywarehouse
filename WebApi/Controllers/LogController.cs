@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 namespace WebApi.Controllers;
 
 [ApiController]
-[Authorize]
+[Authorize(Roles = "Admin")]
 [Route("api/[controller]")]
 public class LogController : ControllerBase
 {
@@ -26,7 +26,7 @@ public class LogController : ControllerBase
     {
         if (!Directory.Exists(logDirectory))
         {
-            throw new WarehouseException("Log directory not found.", StatusCodes.Status404NotFound);
+            throw new WarehouseException("log-not-found", StatusCodes.Status404NotFound);
         }
 
         var logFiles = Directory.GetFiles(logDirectory, "*.log")
@@ -42,13 +42,13 @@ public class LogController : ControllerBase
         return Ok(logFiles);
     }
 
-    [HttpGet("current")]
+    [HttpGet()]
     public async Task<IActionResult> GetCurrentLogData()
     {
         var logFiles = Directory.GetFiles(logDirectory, "*.log");
         if (logFiles.Length == 0)
         {
-            throw new WarehouseException("Log file not found.", StatusCodes.Status404NotFound);
+            throw new WarehouseException("log-not-found", StatusCodes.Status404NotFound);
         }
         var latestLogFile = logFiles
            .Select(f => new FileInfo(f))

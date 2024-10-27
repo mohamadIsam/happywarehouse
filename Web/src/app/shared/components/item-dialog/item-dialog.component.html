@@ -1,0 +1,149 @@
+<div class="modal fade show" style="display: block; padding-right: 15px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-between">
+        <h5 class="modal-title">
+          <i
+            class="fa fa-warning text-warning"
+            style="margin-right: 7px; color: blue"
+          ></i>
+          <span>{{ "item.title" | translate }}</span>
+        </h5>
+        <button
+          type="button"
+          class="close"
+          (click)="dismiss()"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @if (itemForm) {
+      <form [formGroup]="itemForm" (ngSubmit)="submit()">
+        <div class="modal-body">
+          @if(error){
+          <p class="text-danger">
+            {{ "errors." + error["message"] | translate }}
+          </p>
+          }
+          <div class="col-12">
+            <div class="form-group mt-3">
+              <label for="name" class="form-label">
+                {{ "item.name" | translate }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                id="name"
+                autocomplete="false"
+                [class.is-invalid]="submitted && controls.name.errors"
+                showHidePassword
+              />
+              @if(submitted && controls.name.errors){
+              <div class="invalid-feedback">
+                {{ "errors.required" | translate }}
+              </div>
+              }
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group mt-3">
+              <label for="sku" class="form-label">
+                {{ "item.sku" | translate }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="sku"
+                id="sku"
+                autocomplete="false"
+                [class.is-invalid]="submitted && controls.sku.errors"
+                showHidePassword
+              />
+              @if(submitted && controls.sku.errors){
+              <div class="invalid-feedback">
+                {{ "errors.required" | translate }}
+              </div>
+              }
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group mt-3">
+              <label for="qty" class="form-label">
+                {{ "item.qty" | translate }}
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="qty"
+                id="qty"
+                autocomplete="false"
+                [class.is-invalid]="submitted && controls.qty.errors"
+                showHidePassword
+              />
+              @if(submitted && controls.qty.errors){
+              <div class="invalid-feedback">
+                @if(controls.qty.errors['required']){
+                {{ "errors.required" | translate }}
+                }@else if(controls.qty.errors['min']) {
+                {{ "errors.min" | translate : { value: 1 } }}
+                }
+              </div>
+              }
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group mt-3">
+              <label for="coast" class="form-label">
+                {{ "item.coast" | translate }}
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="costPrice"
+                id="coast"
+                autocomplete="false"
+                [class.is-invalid]="submitted && controls.costPrice.errors"
+                showHidePassword
+              />
+              @if(submitted && controls.costPrice.errors){
+              <div class="invalid-feedback">
+                {{ "errors.required" | translate }}
+              </div>
+              }
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group mt-3">
+              <label for="msrp" class="form-label">
+                {{ "item.msrp" | translate }}
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="mSRPPrice"
+                id="msrp"
+                autocomplete="false"
+                [class.is-invalid]="submitted && controls.mSRPPrice.errors"
+                showHidePassword
+              />
+              @if(submitted && controls.mSRPPrice.errors){
+              <div class="invalid-feedback">
+                {{ "errors.required" | translate }}
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-outline-primary">
+            {{ "action.submit" | translate }}
+          </button>
+        </div>
+      </form>
+      }
+    </div>
+  </div>
+</div>

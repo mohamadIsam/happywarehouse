@@ -1,0 +1,20 @@
+p {
+    line-height: 1;
+}
+
+i {
+    font-size: 30px;
+    color: #3142c4;
+}
+
+.btn {
+    height: fit-content;
+}
+
+.fa {
+    margin-inline-end: 5px;
+}
+
+.sub-title {
+    opacity: 0.5;
+}

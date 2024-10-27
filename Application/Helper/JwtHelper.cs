@@ -37,7 +37,7 @@ public class JwtHelper
         var roles = await userManager.GetRolesAsync(user);
         foreach (var role in roles)
         {
-            claims.Add(new Claim(ClaimTypes.Role, role));
+            claims.Add(new Claim("role", role));
         }
 
         var securityToken = new JwtSecurityToken(

@@ -1,1 +1,83 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #ECECFF;
+}
+
+.borderBottom {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.action {
+    margin-bottom: 10px;
+    color: #3142c4;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    background-color: #d8ddfd;
+    border-radius: 100px;
+    border: none;
+    height: 28px;
+    margin-inline-end: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.container {
+    max-width: 805px;
+}
+
+.is-invalid~i.fa-eye,
+.is-invalid~i.fa-eye-slash {
+    display: none;
+}
+
+i.fa-eye,
+i.fa-eye-slash {
+    position: relative;
+    bottom: 32px;
+    left: 95%;
+    cursor: pointer;
+}
+
+.blockscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        /* Initial rotation */
+    }
+
+    100% {
+        transform: rotate(360deg);
+        /* Full rotation */
+    }
+}
+
+.close {
+    background: white;
+    border: 0px;
+    font-size: 23pt;
+}
+
+.font-bold {
+    font-weight: bold;
+}

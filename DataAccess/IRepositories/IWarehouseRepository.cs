@@ -8,4 +8,5 @@ namespace DataAccess.IRepositories;
 
 public interface IWarehouseRepository : IBaseRepository<Warehouse>
 {
+    IQueryable<Warehouse> GetAllWarehouses();
 }

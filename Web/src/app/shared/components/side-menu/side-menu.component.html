@@ -1,0 +1,32 @@
+<div class="bg-white h-100 d-flex">
+  <div class="sidebar">
+    <nav class="nav flex-column">
+      <a
+        class="nav-link"
+        routerLink="./warehouses"
+        routerLinkActive="active"
+        href="javascript:void(0)"
+      >
+        <span>{{ "side-menu.warehouses" | translate }}</span>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="./users"
+        routerLinkActive="active"
+        href="javascript:void(0)"
+      >
+        <span>{{ "side-menu.users" | translate }}</span>
+      </a>
+      @if (tokenService.isAdmin) {
+      <a
+        class="nav-link"
+        routerLink="./log"
+        routerLinkActive="active"
+        href="javascript:void(0)"
+      >
+        <span>{{ "side-menu.log" | translate }}</span>
+      </a>
+      }
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="form-group dropdown relative" app-dropdown>
+  <div class="search-field">
+    <input type="text" [id]="id" [placeholder]="placeholder" [value]="currentValue" (input)="onInput($event)"
+      (input)="filterOptions()" class="form-control" autocomplete="off" [class.is-invalid]="invalid"
+      [readonly]="!allowFilter" />
+    <span class="dropdown-btn"><i class="fa fa-angle-down"></i></span>
+  </div>
+  <ul class="items position-absolute w-100 bg-white" #dropdownList>
+    @for (item of filterdOptions; track $index) {
+    <li class="item" (click)="onSelect(item)">
+      {{ getValue(item) }}
+    </li>
+    }
+  </ul>
+</div>

@@ -1,0 +1,1 @@
+import{R as o,W as e,cc as i}from"./chunk-6HVPCAXH.js";var r=class t{constructor(p){this.httpClient=p}getCountries(){return this.httpClient.get("api/Lookups/getCountries")}getRoles(){return this.httpClient.get("api/Lookups/getRoles")}static \u0275fac=function(n){return new(n||t)(e(i))};static \u0275prov=o({token:t,factory:t.\u0275fac,providedIn:"root"})};export{r as a};

@@ -11,10 +11,10 @@ namespace WebApi.Controllers;
 public class ItemController(IItemService itemService) : ControllerBase
 {
 
-    [HttpGet("getAll")]
-    public async Task<IActionResult> GetAll(int pageNumber = 1, int pageSize = 10)
+    [HttpGet("getAll/{warehouseId}")]
+    public async Task<IActionResult> GetAll(int warehouseId, int pageNumber = 1, int pageSize = 10)
     {
-        var response = await itemService.GetAll(pageNumber, pageSize);
+        var response = await itemService.GetAll(warehouseId, pageNumber, pageSize);
         return Ok(response);
     }
 

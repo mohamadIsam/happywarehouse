@@ -1,0 +1,79 @@
+{
+    "app": {
+        "title": "Happy Warehouse"
+    },
+    "header": {
+        "account-settings": "Account Settings",
+        "logout": "Logout"
+    },
+    "login": {
+        "title": "Welcome To Happy Warehouse System",
+        "email": "Email",
+        "password": "Password",
+        "login": "Login"
+    },
+    "user-list": {
+        "users": "Users",
+        "new-user": "New User"
+    },
+    "user": {
+        "user-profile": "User Profile",
+        "full-name": "Full Name",
+        "email": "Email",
+        "is-active": "Is Active",
+        "role": "Role",
+        "change-password": "Change Password",
+        "current-password": "Current Password",
+        "password": "Password",
+        "confirm-password": "Confirm Password",
+        "confirm-dialog": "Confirm Dialog",
+        "confirm-message": "Are you sure you need delete this user."
+    },
+    "warehouse-list": {
+        "title": "Warehouse",
+        "new": "New Warehouse"
+    },
+    "warehouse": {
+        "title": "Warehouse",
+        "name": "Name",
+        "address": "Address",
+        "city": "City",
+        "country": "Country",
+        "total-items": "Total Items"
+    },
+    "item": {
+        "title": "Item",
+        "items": "Items",
+        "new": "New Item",
+        "name": "Name",
+        "sku": "SKU Code",
+        "qty": "Quantity",
+        "coast": "Coast",
+        "msrp": "MSRP Price"
+    },
+    "log": {
+        "title": "Log Page",
+        "referesh": "Referesh"
+    },
+    "side-menu": {
+        "users": "Users",
+        "warehouses": "Warehouses",
+        "log": "System Log"
+    },
+    "action": {
+        "edit": "Edit",
+        "submit": "Submit",
+        "delete": "Delete",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "errors": {
+        "incorrect-username-or-password": "Invalid user name or password.",
+        "required": "This field is required.",
+        "invalid-email": "The email is invalid.",
+        "user-inactive": "Your account has been temporarily disabled due to inactivity. Please contact support to reactivate your account.",
+        "username-isLockedOut": "Your account is temporarily locked due to multiple failed login attempts. Please try again in 15 minutes or contact support if you need help.",
+        "not-match": "The confirm password is not correct.",
+        "min": "The minimum value is {{value}}."
+    }
+}

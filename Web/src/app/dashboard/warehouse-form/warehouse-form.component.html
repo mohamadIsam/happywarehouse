@@ -1,0 +1,102 @@
+<form (ngSubmit)="submit()" [formGroup]="warehouseForm">
+  <div class="row p-5">
+    <h1 class="h4">
+      {{ "warehouse.title" | translate }}
+    </h1>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-3">
+        <label for="name" class="form-label">
+          {{ "warehouse.name" | translate }}
+        </label>
+        <input type="text" class="form-control" formControlName="name" id="name" autocomplete="false"
+          [ngClass]="{ 'is-invalid': submitted && controls.name.errors }" />
+        @if(submitted && controls.name.errors){
+        <div class="invalid-feedback">
+          {{ "errors.required" | translate }}
+        </div>
+        }
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-3">
+        <label for="address" class="form-label">
+          {{ "warehouse.address" | translate }}
+        </label>
+        <input type="text" class="form-control" formControlName="address" id="address" autocomplete="false"
+          [ngClass]="{ 'is-invalid': submitted && controls.address.errors }" />
+        @if(submitted && controls.address.errors){
+        <div class="invalid-feedback">
+          {{ "errors.required" | translate }}
+        </div>
+        }
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-3">
+        <label for="city" class="form-label">
+          {{ "warehouse.city" | translate }}
+        </label>
+        <input type="text" class="form-control" formControlName="city" id="city" autocomplete="false"
+          [ngClass]="{ 'is-invalid': submitted && controls.city.errors }" />
+        @if(submitted && controls.city.errors){
+        <div class="invalid-feedback">
+          {{ "errors.required" | translate }}
+        </div>
+        }
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="form-group mt-3">
+        <label for="country" class="form-label">
+          {{ "warehouse.country" | translate }}
+        </label>
+        <app-select [options]="countries" key="id" name="name" formControlName="countryId"
+          [value]="controls.countryId.value"></app-select>
+        @if(submitted && controls.countryId.errors){
+        <div class="invalid-feedback">
+          {{ "errors.required" | translate }}
+        </div>
+        }
+      </div>
+    </div>
+    @if (paginatedResponse) {
+    <label for="" class="font-bold mt-5">
+      {{'item.items' | translate}}
+    </label>
+    @for(item of paginatedResponse.data; track $index) {
+    <div class="mt-3 d-flex justify-content-between">
+      <label for="" class="font-bold">{{$index + 1}}</label>
+      <div class="d-flex">
+        <label for="" class="me-3 font-bold">{{'item.name' | translate}}</label>
+        <p> {{item.name}}</p>
+      </div>
+      <div class="d-flex">
+        <label for="" class="me-3 font-bold">{{'item.qty' | translate}}</label>
+        <p> {{item.qty}}</p>
+      </div>
+      <div class="d-flex">
+        <label for="" class="me-3 font-bold">{{'item.coast' | translate}}</label>
+        <p> {{item.costPrice}}</p>
+      </div>
+    </div>
+    }
+    <ngb-pagination [collectionSize]="paginatedResponse.totalCount" (pageChange)="getItemsByWarehouseId($event)" [page]="paginatedResponse.pageNumber"
+      [maxSize]="paginatedResponse.pageSize" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" />
+    }
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group mt-3">
+        <button type="submit" class="btn btn-outline-primary me-3">
+          {{ "action.submit" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <button class="btn btn-primary" (click)="createItem()">
+        {{ "item.new" | translate }}
+      </button>
+    </div>
+
+  </div>
+</form>
